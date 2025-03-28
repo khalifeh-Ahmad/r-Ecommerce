@@ -8,8 +8,10 @@ const Categories = () => {
   const dispatch = useAppDispatch();
   const { loading, error, records } = useAppSelector((state) => state.catRdc);
   useEffect(() => {
-    dispatch(actGetCategories());
-  }, [dispatch]);
+    if (!records.length) {
+      dispatch(actGetCategories());
+    }
+  }, [dispatch, records]);
 
   const catList =
     records.length > 0
