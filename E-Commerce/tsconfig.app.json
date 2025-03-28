@@ -49,6 +49,9 @@
       ],
       "@services/*": [
         "src/services/*"
+      ],
+      "@customTypes/*": [
+        "src/types/*"
       ]
     },
     /* Linting */
