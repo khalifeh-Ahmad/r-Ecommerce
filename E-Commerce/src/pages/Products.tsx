@@ -2,7 +2,10 @@ import { Container, Row, Col } from "react-bootstrap";
 import { Product } from "@components/eCommerce";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { useEffect } from "react";
-import { actGetProductsByCatPrefix } from "@store/products/productsSlice";
+import {
+  actGetProductsByCatPrefix,
+  productsCleanUp,
+} from "@store/products/productsSlice";
 import { useParams } from "react-router-dom";
 const Products = () => {
   const dispatch = useAppDispatch();
@@ -11,6 +14,9 @@ const Products = () => {
 
   useEffect(() => {
     dispatch(actGetProductsByCatPrefix(params.prefix as string));
+    return () => {
+      dispatch(productsCleanUp());
+    };
   }, [dispatch, params]);
 
   const prodList =
