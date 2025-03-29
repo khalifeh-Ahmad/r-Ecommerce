@@ -7,6 +7,8 @@ import {
   productsCleanUp,
 } from "@store/products/productsSlice";
 import { useParams } from "react-router-dom";
+import { Loading } from "@components/feedback";
+import { GridList } from "@components/shared";
 const Products = () => {
   const dispatch = useAppDispatch();
   const params = useParams();
@@ -19,23 +21,14 @@ const Products = () => {
     };
   }, [dispatch, params]);
 
-  const prodList =
-    records.length > 0
-      ? records.map((el) => (
-          <Col
-            key={el.id}
-            xs={6}
-            md={3}
-            className="d-flex justify-content-center mb-5 mt-2"
-          >
-            <Product {...el} />
-          </Col>
-        ))
-      : "There are no categories";
-
   return (
     <Container>
-      <Row>{prodList}</Row>
+      <Loading status={loading} error={error}>
+        <GridList
+          records={records}
+          renderItem={(rcd) => <Product {...rcd} />}
+        />
+      </Loading>
     </Container>
   );
 };
