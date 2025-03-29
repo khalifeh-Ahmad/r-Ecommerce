@@ -1,4 +1,4 @@
-import { Container, Row, Col } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { Product } from "@components/eCommerce";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { useEffect } from "react";

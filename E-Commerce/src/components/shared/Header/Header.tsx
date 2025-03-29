@@ -1,7 +1,7 @@
 import { HeaderBasket } from "@components/eCommerce";
 import { Badge, Container, Nav, Navbar } from "react-bootstrap";
-import styles from "./styles.module.css";
 import { NavLink } from "react-router-dom";
+import styles from "./styles.module.css";
 
 const { headerContainer, headerLogo } = styles;
 
