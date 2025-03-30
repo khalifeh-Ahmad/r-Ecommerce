@@ -2,18 +2,28 @@ import { TProduct } from "@customTypes/product";
 import { createSlice } from "@reduxjs/toolkit";
 
 interface ICartState {
-  item: { [key: number]: number };
+  items: { [key: number]: number };
   productFullInfo: TProduct[];
 }
 
 const initialState: ICartState = {
-  item: {}, // this is to get the product Id and the quantity,then we send Id to server in order to get the latest version of data (like price)
+  items: {}, // this is to get the product Id and the quantity,then we send Id to server in order to get the latest version of data (like price)
   productFullInfo: [],
 };
 const cartSlice = createSlice({
   name: "carts",
   initialState,
-  reducers: {},
+  reducers: {
+    addToCart: (state, action) => {
+      const id = action.payload;
+      if (state.items[id]) {
+        state.items[id]++;
+      } else {
+        state.items[id] = 1;
+      }
+    },
+  },
 });
 
+export const { addToCart } = cartSlice.actions;
 export default cartSlice.reducer;
