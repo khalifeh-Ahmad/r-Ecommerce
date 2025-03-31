@@ -4,16 +4,18 @@ import { TProduct } from "@customTypes/product";
 import { useAppDispatch } from "@store/hooks";
 import { addToCart } from "@store/cart/cartSlice";
 import { useEffect, useState } from "react";
-const { product, productImg } = styles;
+const { product, productImg, maximumNotice } = styles;
 
-const Product = ({ id, img, price, title }: TProduct) => {
+const Product = ({ id, img, price, title, max, quantity }: TProduct) => {
   const dispatch = useAppDispatch();
 
-  const [isBtnClicked, setIsBtnClicked] = useState(0);
   const [isBtnDisabled, setIsBtnDisabled] = useState(false);
 
+  const currentRemainingQty = max - (quantity ?? 0); // because the qty could be undefined or null
+  const qtyReachedToMax = currentRemainingQty <= 0 ? true : false;
+
   useEffect(() => {
-    if (!isBtnClicked) {
+    if (!isBtnDisabled) {
       return;
     }
     setIsBtnDisabled(true);
@@ -21,12 +23,13 @@ const Product = ({ id, img, price, title }: TProduct) => {
       setIsBtnDisabled(false);
     }, 300);
     return () => clearTimeout(debounce);
-  }, [isBtnClicked]);
+  }, [isBtnDisabled]);
 
   const addToCartHandler = () => {
     dispatch(addToCart(id));
-    setIsBtnClicked((prev) => prev + 1);
+    setIsBtnDisabled(true);
   };
+
   return (
     <div className={product}>
       <div className={productImg}>
@@ -34,11 +37,16 @@ const Product = ({ id, img, price, title }: TProduct) => {
       </div>
       <h2>{title}</h2>
       <h3>{price} $</h3>
+      <p className={maximumNotice}>
+        {qtyReachedToMax
+          ? "You've reached the limit"
+          : `You can add ${currentRemainingQty} item(s)`}
+      </p>
       <Button
         variant="info"
         style={{ color: "white" }}
         onClick={addToCartHandler}
-        disabled={isBtnDisabled}
+        disabled={isBtnDisabled || qtyReachedToMax}
       >
         {isBtnDisabled ? (
           <>
