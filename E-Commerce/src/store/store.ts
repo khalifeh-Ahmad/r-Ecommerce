@@ -1,5 +1,14 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { persistReducer, persistStore } from "redux-persist";
+import {
+  persistReducer,
+  persistStore,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
 import catRdc from "./categories/categoriesSlice";
 import prodRdc from "./products/productsSlice";
 import cartRdc from "./cart/cartSlice";
@@ -28,6 +37,12 @@ const rootReducer = combineReducers({
 const store = configureStore({
   reducer: rootReducer,
   //reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REGISTER, REHYDRATE, PERSIST, PAUSE, PURGE], // Prevent serialization warnings
+      },
+    }),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
