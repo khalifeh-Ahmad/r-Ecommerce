@@ -5,17 +5,29 @@ import prodRdc from "./products/productsSlice";
 import cartRdc from "./cart/cartSlice";
 import storage from "redux-persist/lib/storage";
 
-const persistConfig = {
-  key: "root",
-  storage,
-  whitelist: ["cartRdc"],
-};
-const rootReducer = combineReducers({ catRdc, prodRdc, cartRdc });
+// const persistConfig = {
+//   key: "root",
+//   storage,
+//   whitelist: ["cartRdc"],
+// };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const cartPersistConfig = {
+  key: "cart",
+  storage,
+  whitelist: ["items"],
+};
+
+const rootReducer = combineReducers({
+  catRdc,
+  prodRdc,
+  cartRdc: persistReducer(cartPersistConfig, cartRdc),
+});
+
+//const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
-  reducer: persistedReducer,
+  reducer: rootReducer,
+  //reducer: persistedReducer,
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
