@@ -3,11 +3,13 @@ import styles from "./styles.module.css";
 import { useAppSelector } from "@store/hooks";
 import { getCartTotalQtySelector } from "@store/cart/selectors";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 //import { useMemo } from "react";
 
 const { basketContainer, basketQuantity, pumpCartQuantity } = styles;
 
 const HeaderBasket = () => {
+  const navigate = useNavigate();
   const totalItems = useAppSelector(getCartTotalQtySelector);
   //or
   // const cartItems = useAppSelector((state) => state.cartRdc.item);
@@ -35,7 +37,7 @@ const HeaderBasket = () => {
   }, [totalItems]);
 
   return (
-    <div className={basketContainer}>
+    <div className={basketContainer} onClick={() => navigate("/cart")}>
       <ShoppingCart className={styles.basketIcon} size={28} />
       <div className={quantityStyle}>{totalItems}</div>
     </div>
