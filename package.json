@@ -1,9 +1,0 @@
-{
-  "dependencies": {
-    "lucide-react": "^0.483.0",
-    "vite-tsconfig-paths": "^5.1.4"
-  },
-  "devDependencies": {
-    "vite": "^6.2.3"
-  }
-}
