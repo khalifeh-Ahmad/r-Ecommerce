@@ -4,7 +4,8 @@ import AppRouter from "@routes/AppRouter";
 import { store, persistor } from "@store/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
-
+//axios
+import "@services/axios-global.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@styles/global.css";
 

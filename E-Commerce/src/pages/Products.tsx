@@ -8,7 +8,7 @@ import {
 } from "@store/products/productsSlice";
 import { useParams } from "react-router-dom";
 import { Loading } from "@components/feedback";
-import { GridList } from "@components/shared";
+import { GridList, Heading } from "@components/shared";
 const Products = () => {
   const dispatch = useAppDispatch();
   const params = useParams();
@@ -29,6 +29,9 @@ const Products = () => {
 
   return (
     <Container>
+      <Heading>
+        <span className="text-capitalize">{params.prefix}</span> Products
+      </Heading>
       <Loading status={loading} error={error}>
         <GridList
           records={productFullInfo}

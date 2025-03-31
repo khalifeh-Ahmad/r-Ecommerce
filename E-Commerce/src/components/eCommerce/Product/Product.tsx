@@ -3,10 +3,11 @@ import styles from "./styles.module.css";
 import { TProduct } from "@customTypes/product";
 import { useAppDispatch } from "@store/hooks";
 import { addToCart } from "@store/cart/cartSlice";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 const { product, productImg, maximumNotice } = styles;
 
-const Product = ({ id, img, price, title, max, quantity }: TProduct) => {
+const Product = memo(({ id, img, price, title, max, quantity }: TProduct) => {
+  //we used memo to prevent render on all products, we need it only for product who chaned the QTY
   const dispatch = useAppDispatch();
 
   const [isBtnDisabled, setIsBtnDisabled] = useState(false);
@@ -59,6 +60,6 @@ const Product = ({ id, img, price, title, max, quantity }: TProduct) => {
       </Button>
     </div>
   );
-};
+});
 
 export default Product;

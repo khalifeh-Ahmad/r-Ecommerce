@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { Category } from "@components/eCommerce";
 import { Loading } from "@components/feedback";
-import { GridList } from "@components/shared";
+import { GridList, Heading } from "@components/shared";
 
 const Categories = () => {
   const dispatch = useAppDispatch();
@@ -17,6 +17,7 @@ const Categories = () => {
 
   return (
     <Container>
+      <Heading>Categories</Heading>
       <Loading status={loading} error={error}>
         <GridList
           records={records}
