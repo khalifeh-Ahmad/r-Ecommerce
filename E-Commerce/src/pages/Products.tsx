@@ -15,7 +15,7 @@ const Products = () => {
   const { loading, error, records } = useAppSelector((state) => state.prodRdc);
   const cartItems = useAppSelector((state) => state.cartRdc.items);
 
-  const productFullInfo = records.map((el) => ({
+  const productsFullInfo = records.map((el) => ({
     ...el,
     quantity: cartItems[el.id] || 0,
   }));
@@ -34,7 +34,7 @@ const Products = () => {
       </Heading>
       <Loading status={loading} error={error}>
         <GridList
-          records={productFullInfo}
+          records={productsFullInfo}
           renderItem={(rcd) => <Product {...rcd} />}
         />
       </Loading>
